@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tic Tac Toe — Ocean Professional
+
+Production-ready Next.js app delivering a modern, accessible Tic Tac Toe game with PvP and AI modes, built with TypeScript and GxP-compliant scaffolding.
+
+## Features
+- Ocean Professional theme with responsive, centered layout
+- 3x3 board with keyboard and mouse support
+- PvP and Player vs AI modes (minimax with alpha-beta pruning)
+- Status indicator, reset, and win/draw detection
+- GxP scaffolding: ALCOA+ audit trail hooks, validation utilities, RBAC placeholders
+- Error handling with user-friendly toasts and internal logging
+- Unit tests covering core logic (engine, validators, AI)
 
 ## Getting Started
+- Dev (default port 3000):
+  npm run dev
 
-First, run the development server:
+- Build:
+  npm run build
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Start:
+  npm run start
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 to play.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
+- src/app: Next.js app router pages and layout
+- src/components: UI components (GameBoard, StatusBar, ModeToggle, AuditTrailViewer)
+- src/lib/game: Core logic (engine, validators, ai)
+- src/lib/compliance: Audit trail, access control, errors
+- src/lib/ui: Toast utilities
+- src/tests: Jest unit tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Compliance Notes (GxP)
+- Audit Trail (src/lib/compliance/audit.ts)
+  - Captures ISO timestamp, userId, action (CREATE/READ/UPDATE/DELETE/ERROR), before/after, reason
+  - In-memory store for demo; replace with append-only persistent storage for production
+- Validation (src/lib/game/validators.ts)
+  - Ensures bounds, empty cell, and game not finished before move
+- Error Handling (src/lib/compliance/errors.ts, toast UI)
+  - Domain-specific errors (ValidationError, AuthorizationError) with conversion helper
+- Access Control (src/lib/compliance/access.ts)
+  - ensureRole() guard; extend Role/Operation mapping for real RBAC
+- Electronic signature
+  - Not required for this demo; placeholders can be added at critical operations in future
 
-## Learn More
+## Testing
+- Run unit tests:
+  npm test
 
-To learn more about Next.js, take a look at the following resources:
+- Coverage target: >=80% for core logic files (engine, validators, ai)
+- Tests:
+  - src/tests/engine.test.ts
+  - src/tests/validators.test.ts
+  - src/tests/ai.test.ts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Assumptions
+- No external services or authentication are configured; userId is "anonymous"
+- Audit trail is retained in-memory; not persisted across reloads
+- Next.js 15 with React 19 app router
