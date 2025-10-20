@@ -29,9 +29,13 @@ export function StatusBar({ status, onReset }: StatusBarProps) {
     if (status.startsWith("Turn: ")) {
       const p = status.trim().endsWith("X") ? "X" : status.trim().endsWith("O") ? "O" : null;
       if (p) {
+        const color = "var(--color-primary)"; // active turn highlighted in primary
         return (
-          <span className="text-sm font-medium">
-            Turn: <PlayerIcon player={p as "X" | "O"} />
+          <span className="text-sm font-medium flex items-center gap-1">
+            Turn:
+            <span style={{ color }}>
+              <PlayerIcon player={p as "X" | "O"} size={20} />
+            </span>
           </span>
         );
       }
@@ -39,9 +43,13 @@ export function StatusBar({ status, onReset }: StatusBarProps) {
     if (status.startsWith("Winner: ")) {
       const p = status.trim().endsWith("X") ? "X" : status.trim().endsWith("O") ? "O" : null;
       if (p) {
+        const color = "var(--color-primary)"; // emphasize winner in primary
         return (
-          <span className="text-sm font-medium">
-            Winner: <PlayerIcon player={p as "X" | "O"} />
+          <span className="text-sm font-medium flex items-center gap-1">
+            Winner:
+            <span style={{ color }}>
+              <PlayerIcon player={p as "X" | "O"} size={20} />
+            </span>
           </span>
         );
       }

@@ -95,7 +95,7 @@ export function GameBoard({ state, onMove, ...divProps }: GameBoardProps) {
               onClick={() => handleClick(rIdx, cIdx)}
               disabled={disabled}
             >
-              {cell ? <PlayerIcon player={cell} /> : ""}
+              {cell ? <PlayerIcon player={cell} size={24} /> : ""}
             </button>
           );
         })
