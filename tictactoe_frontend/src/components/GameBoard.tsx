@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef } from "react";
 import { GameState } from "@/lib/game/engine";
+import { PlayerIcon, iconLabelFor } from "@/lib/ui/icons";
 
 /**
 // ============================================================================
@@ -89,12 +90,12 @@ export function GameBoard({ state, onMove, ...divProps }: GameBoardProps) {
               role="gridcell"
               aria-colindex={cIdx + 1}
               aria-rowindex={rIdx + 1}
-              aria-label={`Cell ${rIdx + 1},${cIdx + 1} ${cell ? `occupied by ${cell}` : "empty"}`}
+              aria-label={`Cell ${rIdx + 1},${cIdx + 1} ${cell ? `occupied by ${iconLabelFor(cell)}` : "empty"}`}
               className={`cell ${disabled ? "disabled" : ""}`}
               onClick={() => handleClick(rIdx, cIdx)}
               disabled={disabled}
             >
-              {cell ?? ""}
+              {cell ? <PlayerIcon player={cell} /> : ""}
             </button>
           );
         })
